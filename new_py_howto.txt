@@ -1,0 +1,213 @@
+HOWTO make a printable meeting schedule of Al-Anon
+meetings in the Austn and surrounding area.
+
+
+
+Before you start 
+
+  You will need to have the following installed on your computer
+
+   - Python ( a computer language)
+   - Libre Office (for spreadsheet)
+      You might be able to use other spreadsheet programs, for 
+      example Microsoft Excel, but be aware that you will
+      need to adapt these instructions when we get to doing the
+      spreadsheet part.
+
+  You will also need these three files:
+   
+   new_py_howto.txt   (this file)
+   
+   new.py  (Python program used to convert al-anon 
+            website .txt data to 
+            .csv spreadsheet format)
+    
+   master.ods (this is a libre office calc formatted spreadsheet)
+     You can proceed without using master.ods as a 
+     template but there are more steps.
+         
+   
+    
+###########################################
+#  obtaining data:
+#    1. go to the al-anon meetings page
+#        https://al-anon.org/al-anon-meetings/
+#       Click on the blue bubble "Find an Al-Anon meeting
+#
+#    2. Next, select both of these choices
+#            al-anon   al-ateen
+#          and also both of these
+#            english   espanol
+#       Select all days  (sun, mon, tu.... thru saturday)
+        You do not need to select anything under
+             Accomodations  or  Participant
+        Lastly, choose the location:
+          78705 and search radius: 25 miles.
+       
+#    2. Capture the screen output with  ctrl-A
+#    3. Open a word processor (such as notepad on Windows).
+#       Tnen paste (ctrl-V) the captured output.
+#       Save the result as file  
+
+           mdatanew.txt
+
+#       (the file should be about 2000 lines long).
+
+
+#  Converts mdata.txt to spreadsheet csv format
+#    1.  be sure you are in the directory to where new.py and
+         mdatanew.txt is.  Then run this command
+         
+            python new.py >new.csv
+
+         (you may need to open a  command or terminal window to
+         run this command).
+
+#        This will create "comma separated values" text file named
+            new.csv 
+#        which can be read by a spreadsheet program.
+         This file is typically about 190 lines long.
+    
+    
+To make the final printable shcedule, there are two choices 
+at this point.  You can either use the template spreadsheet master.ods
+with the new .csv data (easiest), or you can create an entirely
+new spreadsheet from scratch.   Using master.ods may be easiest 
+as some of the spreadsheet formatting and footer information is 
+already in place.
+
+
+USING THE MASTER.ODS
+     
+  1. Start Libre Office and open the Calc (spreadsheet) program
+      File -> open  -> new.csv
+  
+  4.  On new csv, sort the Austin groups.  
+
+        select ROWS 2 thru 30 or so (stop at where the 
+        out of Austin meetings begin.  Do not include
+        the header line AL_ANON GROUPS OUTSIDE OF AUSTIN
+        Select Data -> Sort 
+           sort key 1:  Column A
+           sort key 2:  Column B
+        this will rearrange the rows so that they are sorted
+        by the AREA column.
+        
+  5.  Sort the out of Austin groups (everything after the line
+        AL_ANON GROUPS OUTSIDE OF AUSTIN
+        
+  6.  In Format -> page style
+        Under sheet tab, select  Grid
+        
+   7    Under page tab,  set portrait  margins L .20  R .20
+   
+   8.   We are done with Page Style.  Now select print preview
+        and adjust the size slicer to maximize row width.
+        
+   Now you can print and save this data     
+   Compare it to the old previous schedue
+   to verify changes... check for new groups, deleted groups,
+   or any glitches in this new data.
+      
+   If all is ok   
+    1. copy master.ods  to aus-alanon-sched.ods
+          
+     All changes will now be made to this new file
+      aus-alanon-sched.ods.
+      
+    2. Delete the austin afg data from  aus-alanon-sched.ods
+      Do not use the delete rows function.  Instead
+      highlight the rows and hit the delete key,
+      This leaves approximately 30 blank rows,
+      
+      Now copy the rows from new.ods into  aus-alanon-sched.ods
+      
+    3. Repeat the same for the out of austin group data
+    
+    4. Under Format -> Page Style 
+       Update the header to specify the current year and month
+       
+    5. Update the "list created on" date at the bottom
+    
+    6. save, then print the spreadsheet.
+    
+    If all looks OK then export to PDF 
+      
+
+
+#  TO CREATE A SPREADSHEET FROM SCRATCH:
+#  
+#   The spreadsheet program is used to format and print the csv file
+#   created in the previous step,
+#   Open libre office calc and open file new.csv
+#   DO the following steps 
+#  
+#  1. sort the Austin groups:
+#      select ROWS 2 thru 30 or so (stop at where the 
+#      out of Austin meetings begin.  Do not include
+#      the header line AL_ANON GROUPS OUTSIDE OF AUSTIN
+#     Select Data -> Sort 
+#         sort key 1:  Column A
+#         sort key 2:  Column B
+#     this will rearrange the rows so that they are sorted
+#     by the AREA column.
+#     
+#      
+#  2. Sort the Outisde-of-austin groups in a similar
+#     manner.   Typically ROWS 32-55.   Do not
+#     select the header line
+#       AL_ANON GROUPS OUTSIDE OF AUSTIN
+#
+#  3. at the title line 
+#        AL_ANON GROUPS OUTSIDE OF AUSTIN
+#      Sheet -> insert page break ->  row break
+#  4. Hilight the whole spreadsheed.  Bold all text
+#       with  Format -> Text  -> Bold
+#  5. on Hilltoppers AFG Saturday  swap the times so the 9:00 am
+#     shows above the 10:30am Wo line.  (ctrl-enter makes
+#     a new line in a cell)
+#
+#  The next few steps create the document title and footers.
+#
+#  6. select  Format -> Page style
+#    a.  Page tab  set portrait  margins L .20m   R  .20   keep .79 for top and bottom
+#    b.  Header tab, then click the Edit box.
+#        In center area regular 20pt  ( Autofit height is set but height = .2 )
+#        type
+#       Greater Austin Al-Anon Meeting List  (June 2026)
+#        Now highlight this text and choose Custom  select the first box,
+#        then choose 20 pt
+#    c. Footer (first page)  Left area  12 pt but bold Wo  Mo G  Nc and Z 
+#      Wo = Women only,  Mo = Men only, G = LGBT welcoming, E = Espanol, Nc = Newcomers 
+#      Z = zoom. See the Al-Anon online schedule for zoom meeting details.
+#     
+#      AREA: C=central Austin, N=North, S=South, etc. (based on zip code). 
+#
+#    d. footer (rest) 14 pt  bold the web pages
+#      A printable file (PDF) of this list is available on https://myalanon.github.io
+#
+#      This is not an official publication of Al-anon or any of its groups.  Some details
+#      have been omitted for brevity.  For complete
+#      meeting information see the Al-Anon website https://al-anon.org/al-anon-meetings
+#     
+#    e.  Sheet tab:  under print  select Grid
+#   Click OK.
+#   You are now done with sheet setup.   Time to print!
+#
+#  7.  save your work with File -> save or click the diskette image at the top.
+#  8.  Under File -> print preview   adjust the slider to maximize
+#
+#  9.  Print -  make sure two sided printing is selected  (flip on long side)
+#
+
+
+HINTS
+   if a zipcode 99999 is for Zoom only meetings.
+   
+   If an area is listed as ?? then add the zip code of the meeting to 
+   the area tables
+            
+            
+
+                     
+                     
