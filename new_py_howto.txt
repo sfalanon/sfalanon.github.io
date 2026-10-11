@@ -77,8 +77,6 @@ new spreadsheet from scratch.   Using master.ods may be easiest
 as some of the spreadsheet formatting and footer information is 
 already in place.
 
-
-USING THE MASTER.ODS
      
   1. Start Libre Office and open the Calc (spreadsheet) program
       File -> open  -> new.csv
@@ -104,7 +102,7 @@ USING THE MASTER.ODS
   6.  In Format -> page style
         Under sheet tab, select  Grid
         
-  7    Under page tab,  set portrait  margins L .20  R .20
+  7   Under page tab,  set portrait  margins L .20  R .20
    
   8.   We are done with Page Style.  Now select print preview
         and adjust the size slicer to maximize row width.
@@ -136,15 +134,17 @@ USING THE MASTER.ODS
        
     5. Update the "list created on" date at the bottom
     
-    6. save, then print the spreadsheet.
+    6. Hilight the whole spreadsheed.  Bold all text
+        with  Format -> Text  -> Bold    
+    
+    7. save, then print the spreadsheet
     
     If all looks OK then export to PDF with
        File -> Export as pdf    
        You do not need to select any options
        
-    7. LASTLY, Dont forget to update the master ods
-       with the latest schedule
-           copy  aus-alanon-sched.ods   master.ods
+    8. LASTLY, Dont forget to update the master ods
+          copy  aus-alanon-sched.ods   master.ods
       
 
 
@@ -215,10 +215,10 @@ USING THE MASTER.ODS
 
 
 HINTS
-   if a zipcode 99999 is for Zoom only meetings.
+   Zipcode 99999 is for Zoom only meetings.
    
    If an area is listed as ?? then add the zip code of the meeting to 
-   the area tables
+   the area tables near the top of new.py
             
             
 
