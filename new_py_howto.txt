@@ -44,8 +44,9 @@ Before you start
         Lastly, choose the location:
           78705 and search radius: 25 miles.
        
-#    2. Capture the screen output with  ctrl-A
-#    3. Open a word processor (such as notepad on Windows).
+#    3. Select the screen output with  ctrl-A  then
+         ctrl-C to copy it.
+#    4. Open a word processor (such as notepad on Windows).
 #       Tnen paste (ctrl-V) the captured output.
 #       Save the result as file  
 
@@ -82,7 +83,7 @@ USING THE MASTER.ODS
   1. Start Libre Office and open the Calc (spreadsheet) program
       File -> open  -> new.csv
   
-  4.  On new csv, sort the Austin groups.  
+  2.  On new csv, sort the Austin groups.  
 
         select ROWS 2 thru 30 or so (stop at where the 
         out of Austin meetings begin.  Do not include
@@ -93,18 +94,23 @@ USING THE MASTER.ODS
         this will rearrange the rows so that they are sorted
         by the AREA column.
         
-  5.  Sort the out of Austin groups (everything after the line
+  4.  Sort the out of Austin groups (everything after the line
         AL_ANON GROUPS OUTSIDE OF AUSTIN
+        
+  5.  At the line  AL_ANON GROUPS OUTSIDE OF AUSTIN
+      insert a page break with
+        Sheet -> insert page break 
         
   6.  In Format -> page style
         Under sheet tab, select  Grid
         
-   7    Under page tab,  set portrait  margins L .20  R .20
+  7    Under page tab,  set portrait  margins L .20  R .20
    
-   8.   We are done with Page Style.  Now select print preview
+  8.   We are done with Page Style.  Now select print preview
         and adjust the size slicer to maximize row width.
         
-   Now you can print and save this data     
+   Now you can print and save this as  
+        new.ods
    Compare it to the old previous schedue
    to verify changes... check for new groups, deleted groups,
    or any glitches in this new data.
@@ -125,13 +131,20 @@ USING THE MASTER.ODS
     3. Repeat the same for the out of austin group data
     
     4. Under Format -> Page Style 
+        select the   Header tab, then  select the EDIT button
        Update the header to specify the current year and month
        
     5. Update the "list created on" date at the bottom
     
     6. save, then print the spreadsheet.
     
-    If all looks OK then export to PDF 
+    If all looks OK then export to PDF with
+       File -> Export as pdf    
+       You do not need to select any options
+       
+    7. LASTLY, Dont forget to update the master ods
+       with the latest schedule
+           copy  aus-alanon-sched.ods   master.ods
       
 
 
