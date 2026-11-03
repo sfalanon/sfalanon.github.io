@@ -33,9 +33,12 @@ def getzip(address):
          return ("99999")
 
 
+# Determine if this is the beginning of a new AFG or Alateen group
 def isnewrecord(the_line):
-    if ( clean_line.endswith("AFG")  or clean_line.endswith("GFA") or \
-       ( "Alateen" in the_line  and (len(clean_line) > 8) ) ):
+    if ( "Al-AnonAlateen" in the_line ):
+        return False  # this one line does not start a new group
+    if ( the_line.endswith("AFG")  or the_line.endswith("GFA") or \
+       ( "Alateen" in the_line  and (len(the_line) > 8) ) ):
         return True
     else:
         return False
@@ -65,13 +68,13 @@ def isinafglist(afglist, thename, zipcode):
 class afg:
     # The constructor method initialized when a new object is made
     def __init__(self, name, loc, addr, special):
-        self.name = name    # Instance attribute
-        self.loc = loc  # Instance attribute
-        self.addr = addr
+        self.name = name    # AFG name
+        self.loc = loc      # meeting location e.g., Hillcrest Church or Northland AA Club
+        self.addr = addr    # meeting address 
         self.special = special # such as :room 161" or "under tree"
-        self.zip = ""   # zipcode
-        self.area = "??"  # general area where meeting is e.g., North, South, West, etc
-        self.isaustin = 0
+        self.zip = ""       # zipcode
+        self.area = "??"    # general area where meeting is e.g., North, South, West, etc
+        self.isaustin = 0   # 1 if Austin, 0 if outside of Austin
         self.sun = ""
         self.mon = ""
         self.tue = ""
@@ -79,13 +82,6 @@ class afg:
         self.thu = ""
         self.fri = ""
         self.sat = ""
-
-    # A custom method defining object behavior
-    def bark(self):
-        return f"{self.name} says Woof!"
-        
-    def changename(self, newname):
-        self.name = newname
         
     def chgsun(self, addit):
         self.sun = self.sun + addit      
@@ -111,7 +107,7 @@ class afg:
 
 
 
-# dictionary to translate zip code to its geneneral austin area
+# dictionary to translate zip code to its general austin area
 areas = {
     "78759": "N",
     "78758": "N",
@@ -129,7 +125,7 @@ areas = {
     "78701" : "C"
 }
 
-# dictionary to translate zip code to areas OUTSIDE of Austin area
+# dictionary to translate zip code to areas OUTSIDE of Austin
 outsideareas = {
     "78645": "LV",  # Lago Vista
     "78738": "LT",  # Lake Travis
@@ -148,15 +144,13 @@ outsideareas = {
 }
 
 
-#print spreadsheet header
-#print ("GROUP,DSORT,DAY,TIME,LOCATION,ADDRESS")
-
 
 # the number of AFG groups found so far
 num_groups = 0
 
-# after finding an AFG group, i is line count 
-# of the input data within that AFG group.
+# after finding an AFG group, i is line number within
+# that AFG's recored.
+# The number is reset to 0 with each new group.
 i = 0
 
 # Globals
@@ -178,10 +172,10 @@ haveaddr = 0
 special =""  # used only if Hilltoppers or tree group
 
 
-#with open("mdatashort.txt", "r") as file:
-#with open("mdata.txt", "r") as file:
-#with open("mdata50.txt", "r") as file:
-with open("mdatanew.txt", "r") as file:
+#with open("mdatashort.txt", "r", encoding='latin-1') as file:
+#with open("mdata.txt", "r", encoding='latin-1') as file:
+#with open("mdata50.txt", "r", encoding='latin-1') as file:
+with open("mdatanew.txt", "r", encoding='latin-1') as file:
 
 
     for line in file:
@@ -194,7 +188,8 @@ with open("mdatanew.txt", "r") as file:
         # Line ending in AFG or GFA means new group, or Alateen 
         if isnewrecord(clean_line):
 
-             i = 0  
+             i = 0 
+             LOC=""
              women=""
              zoom=""
              chair=""
@@ -207,7 +202,8 @@ with open("mdatanew.txt", "r") as file:
        
         i = i + 1     # i is the line number within that AFG's record
         # look at the lines after AfG was found up until WSO is found
-        
+     
+        # DEBUG uncomment the next three lines to see what line is being processed
         #print ("processing line number " + str(i))
         #print (line)
         #print
@@ -344,18 +340,29 @@ with open("mdatanew.txt", "r") as file:
                 special = "  Room 161"
             if (csvline == "The Tree AFG") or (csvline == "The Tree2 AFG"):
                 special = "  Meet under tree, bring a chair"  
+               
+            if (LOC == "") and  (zoom != ""):
+                LOC="Zoom"
                 
             new_afg = afg(csvline,LOC,ADDR,special)
             new_afg.zip = zipcode
             
             
-            # is this an austin location?
+            # is this an austin location?  if so, set the isaustin flag
             if zipcode in areas:
                  new_afg.area = areas[zipcode]   # found  so set area based on zip code.  e.g.  area = N if zip = 78759
                  new_afg.isaustin = 1
             if zipcode in outsideareas:
-                 new_afg.area = outsideareas[zipcode]   # found  so set area based on zip code.  e.g.  area = N if zip = 78759
-                 new_afg.isaustin = 0    
+                 new_afg.area = outsideareas[zipcode]   # found  so set area based on zip code, e.g. GT 
+                 new_afg.isaustin = 0 
+              
+            # special:  put both tree AFG groups in the same area   
+            if (csvline == "The Tree AFG") or (csvline == "The Tree2 AFG"): 
+                 new_afg.area = "N"
+             
+            
+            if ("Alateen" in csvline):
+                  new_afg.area = new_afg.area + "  At"
                  
             
             
@@ -475,7 +482,7 @@ for item in afglist:
         #print (afginfo)
         #sys.exit()
 
-        afginfo = item.area + "," + afginfo
+        afginfo = item.area + "," + afginfo  # put the general area e.g. "N"  in front of name and address
         sun= "\"" + item.sun + "\""
         mon= "\"" + item.mon + "\""
         tue= "\"" + item.tue + "\""
